@@ -1,3 +1,12 @@
+<?php
+    session_start();
+
+    if (isset($_SESSION['usuario'])) {
+        $_SESSION['usuario'];
+    } else {
+
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -15,10 +24,22 @@
 <body>
     <nav class="navbar bg-light mb-5">
         <div class="container-fluid">
-            <a class="navbar-brand" href="#">
+            <a class="navbar-brand" href="/">
 
                 <i class="fa-brands fa-php fs-3"></i>
                 CRUD PHP|CSS|HTML5
             </a>
+            <span>
+                <a class=" btn navbar-brand" href="/">Posts</a>
+                <a class=" btn navbar-brand" href="/module/users/list.php">Users</a>
+                <?php if(isset($_SESSION['usuario'])){?>
+                    <a class="btn navbar-brand" href="/logout.php">Logout</a>
+                <?php } else { ?>
+                    <button type="button" class="btn navbar-brand" data-bs-toggle="modal" data-bs-target="#loginModal">
+                        Login
+                    </button>
+                <?php }?>
+                </span>
+
         </div>
     </nav>

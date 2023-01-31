@@ -1,11 +1,11 @@
 <?php
 
-require_once '../../conect.php';
+require_once '../../class/Post.php';
 
 if(isset($_GET['id'])){
     $id = $_GET['id'];
-    $q = "DELETE FROM 'posts' WHERE id = $id";
-    $conn->exec($q);
+    $post=Post::getPostById($id);
+    $post->delete();
     header('location:/?success=true');
 }
 
