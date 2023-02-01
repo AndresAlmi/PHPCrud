@@ -1,4 +1,3 @@
-<?php include_once 'src/templates/layout/header.php' ?>
 <?php require_once 'class/Post.php' ?>
 <?php
 if(isset($_GET['search'])){
@@ -10,29 +9,10 @@ if(isset($_GET['search'])){
 }else{
     $listadoPosts=Post::getPosts();
 }
-$error = [];
-$alert = null;
-if(isset($_GET['title'])){
-    $error[]='-Title Empty  ';
-    $message = '<strong>Error!</strong> Ocurrio un problema: ';
-    $alert = 'warning';
-}
-if(isset($_GET['resume'])){
-    $error[]='-Resume Empty  ';
-    $message = '<strong>Error!</strong> Ocurrio un problema: ';
-    $alert = 'warning';
-}
-if(isset($_GET['success'])){
-    if($_GET['success'] == 'true'){
-        $error = null;
-        $message = '<strong>Exito!</strong> Operacion completada.';
-        $alert = 'success';
-    }
-}
 
 ?>
-<div class="container text-center">
-    
+<?php include_once 'src/templates/layout/header.php' ?>
+
     <div class="row align-items-center">
         <div class="col">
             <form action="" method="GET">
@@ -43,15 +23,12 @@ if(isset($_GET['success'])){
             </form>
         </div>
     </div>
-    <?php if($alert){?>
-        <div class="alert alert-<?php echo $alert;?> alert-dismissible fade show" role="alert">
-            <?php echo $message; if($error){foreach($error as $error):  echo "<strong>" . $error . "</strong>"; endforeach;}?>
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    <?php } ?>
+
     <div class="row mt-3">
         <div class="col border rounded">
             <form action="module/posts/insert.php" method="POST">
+                <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf'];?>">
+                <input type="hidden"name="idUser" value="<?php if(isset($_SESSION['id'])){ echo $_SESSION['id'];}?>" readonly>
                 <div class="mb-3 mt-2">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" id="title" name="title" class="form-control" placeholder="title" required>
@@ -86,18 +63,15 @@ if(isset($_GET['success'])){
                         <td><?php echo $post->getResume()?></td>
                         <td><?php echo $post->user->getUsername()?></td>
                         <td>
-                            <form action="module/posts/edit.php" method="POST">
-                                <input type="hidden" value="<?php echo $post->getId()?>" name="id">
-                                <button class="btn btn-light" type="submit"><i class="fa-regular fa-eye"></i></button>
-                            </form>
-
+                            <a href="module/posts/edit.php?id=<?php echo $post->getId()?>" class="btn btn-light">
+                                <i class="fa-regular fa-eye"></i>
+                            </a>
                         </td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
         </div>
-
     </div>
 </div>
 

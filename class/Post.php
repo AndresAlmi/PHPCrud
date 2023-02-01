@@ -4,8 +4,8 @@
     
     class Post extends User{
         public $_id;
-        private $_title;
-        private $_resume;
+        protected $_title;
+        protected $_resume;
         public $user; 
         
         public function getId(){
@@ -30,11 +30,11 @@
             $this->user = $userParameter;
         }
 
-        public static function getPosts($search = ""){
+        public static function getPosts($search = null){
             $database = new MySQL();
-            $q="SELECT p.id, p.title, p.resumen, u.id FROM posts p JOIN user u ON p.user_id = u.id ";
+            $q="SELECT p.id, p.title, p.resumen, u.id as u_id, u.username FROM posts p JOIN user u ON p.user_id = u.id ";
             if($search != null){
-                $q .="WHERE title LIKE '%$search%' or resumen LIKE '%$search%'";
+                $q .="WHERE p.title LIKE '%$search%' or p.resumen LIKE '%$search%' or u.username LIKE '%$search%'";
             }
             $posts = $database->consult($q);
             $listadoPosts = [];
@@ -43,7 +43,7 @@
                 $post->_id = $fetch['id'];
                 $post->_title = $fetch['title'];
                 $post->_resume = $fetch['resumen'];
-                $post->user = User::getUserById($post->_id);
+                $post->user = User::getUserById($fetch['u_id']);
                 $listadoPosts[]= $post;
             }
 
@@ -52,8 +52,7 @@
 
         public static function getPostById($id){
             $database = new MySQL();
-            $q="SELECT * FROM posts WHERE id = $id ";
-
+            $q="SELECT p.id, p.title, p.resumen, u.id as u_id, u.username FROM posts p JOIN user u ON p.user_id = u.id WHERE p.id = $id ";
             $posts = $database->consult($q);
             $data = $posts->fetch_assoc();
             $postById = self::__createPost($data);
@@ -65,6 +64,7 @@
             $post->_id = $data['id'];
             $post->_title = $data['title'];
             $post->_resume = $data['resumen'];
+            $post->user = User::getUserById($data['u_id']);
             return $post;
         }
         public function insert(){
