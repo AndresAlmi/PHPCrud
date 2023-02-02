@@ -6,6 +6,12 @@ session_start();
 $csrfPOST = $_POST['csrf'];
 $csrf     = $_SESSION['csrf'];
 
+/**
+ * recibe valor csrf desde el formulario
+ * recibe valor csrf desde la sesion
+ * compara los valores
+ * si son == continua la ejecucion
+ */
 function validateCsrf($csrf, $csrfPOST){
     if($csrf != $csrfPOST){
         return false;
@@ -18,7 +24,11 @@ if(validateCsrf($csrf, $csrfPOST) == false){
 };
 
 $response = null;
-
+/**
+ * recibe 
+ * 
+ * 
+ */
 function validate($key, $value){
     $retorno = null;
     if(trim($value) == ""){
@@ -35,9 +45,9 @@ switch($_POST){
 }
 
 if(!$response){
-    $title = $_POST['title'];
+    $title  = $_POST['title'];
     $resume = $_POST['resume'];
-    $user = $_POST['idUser'];
+    $user   = $_POST['idUser'];
     
     $post = new Post();
     $post->setTitle($title);

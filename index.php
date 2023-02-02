@@ -27,7 +27,7 @@ if(isset($_GET['search'])){
     <div class="row mt-3">
         <div class="col border rounded">
             <form action="module/posts/insert.php" method="POST">
-                <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf'];?>">
+                <input type="hidden" name="csrf" value="<?php if(isset($_SESSION['csrf'])){ echo $_SESSION['csrf'];}?>">
                 <input type="hidden"name="idUser" value="<?php if(isset($_SESSION['id'])){ echo $_SESSION['id'];}?>" readonly>
                 <div class="mb-3 mt-2">
                     <label for="title" class="form-label">Title</label>

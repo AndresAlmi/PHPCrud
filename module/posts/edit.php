@@ -12,7 +12,7 @@ if(isset($_GET['id'])){
         <div class="col border rounded">
             <form action="update.php" method="POST">
                 <input type="hidden" name="id" value="<?php echo $post->getId()?>">
-                <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf'];?>">
+                <input type="hidden" name="csrf" value="<?php if(isset($_SESSION['csrf'])){echo $_SESSION['csrf'];}?>">
                 <div class="mb-3 mt-2">
                     <label for="title" class="form-label">Title</label>
                     <input type="text" id="title" name="title" class="form-control" value="<?php echo $post->getTitle()?>" placeholder="title">

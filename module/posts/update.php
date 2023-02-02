@@ -39,9 +39,9 @@ switch($_POST){
 }
 
 if(!$response){
-    $title = $_POST['title'];
+    $title  = $_POST['title'];
     $resume = $_POST['resume'];
-    $user = 1;
+    $user   = $_POST['id'];
     
     $post = Post::getPostById($id);
     $post->setTitle($title);

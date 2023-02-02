@@ -5,7 +5,7 @@ class MySQL {
 	private $_conexion;
 
 	public function __construct() {
-		$this->_conexion = new mysqli("localhost", "root", "root", "crudAndres");
+		$this->_conexion = new mysqli("localhost", "root", "", "crudAndres");
 	}
 
 	public function consult($sql) {
