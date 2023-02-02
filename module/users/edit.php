@@ -14,27 +14,33 @@ if(isset($_GET['id'])){
             <form action="update.php" method="POST">
                 <div class="row">
                     <div class="col-6">
-                        <input type="hidden" name="csrf" value="<?php echo $_SESSION['csrf'];?>">
+                        <input type="hidden" name="csrf" value="<?php if(isset($_SESSION['csrf'])){echo $_SESSION['csrf'];} ?>">
                         <input type="hidden" name="id" value="<?php echo $user->getId()?>">
-                        <?php if($user->getUsername() == $_SESSION['usuario']){?>
-                            <div class="my-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" id="username" name="username" class="form-control" value="<?php echo $user->getUsername()?>" placeholder="Username">
-                            </div>
-                            <div class="my-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" id="password" name="password" class="form-control" placeholder="password">
-                            </div>
-                            <div class="my-3">
-                                <label for="rPassword" class="form-label">Repeat Password</label>
-                                <input type="password" id="rPassword" name="rPassword" class="form-control" placeholder="Repeat Password">
-                            </div>
-                        <?php } else { ?>
-                            <div class="my-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" id="username" name="username" class="form-control" value="<?php echo $user->getUsername()?>" placeholder="Username" readonly>
-                            </div>
+                        <?php if(isset($_SESSION['usuario'])){?>
+                            <?php if($user->getUsername() == $_SESSION['usuario']){?>
+                                <div class="my-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" id="username" name="username" class="form-control" value="<?php echo $user->getUsername()?>" placeholder="Username">
+                                </div>
+                                <div class="my-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" id="password" name="password" class="form-control" placeholder="password">
+                                </div>
+                                <div class="my-3">
+                                    <label for="rPassword" class="form-label">Repeat Password</label>
+                                    <input type="password" id="rPassword" name="rPassword" class="form-control" placeholder="Repeat Password">
+                                </div>
+                            <?php } else { ?>
+                                <div class="my-3">
+                                    <label for="username" class="form-label">Username</label>
+                                    <input type="text" id="username" name="username" class="form-control" value="<?php echo $user->getUsername()?>" placeholder="Username" readonly>
+                                </div>
+                            <?php }?>
                         <?php }?>
+                        <div class="my-3">
+                            <label for="username" class="form-label">Username</label>
+                            <input type="text" id="username" name="username" class="form-control" value="<?php echo $user->getUsername()?>" placeholder="Username" readonly>
+                        </div>
                     </div>
                     <div class="col-6">
                         <div class="my-3">

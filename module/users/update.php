@@ -49,6 +49,7 @@ if(!$response){
     if(validatePassword($password, $repeat) == true){
         $user = User::getUserById($id);
         $password = hash('md5', $password);
+        $_SESSION['usuario'] = $username;
         $user->setUsername($username);
         $user->setPassword($password);
         $user->update();
